@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 export default function Customer() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Customer() {
                 </Link>
                 {/* >register */}
                 <Link
-                  to="/auth/customer/register"
+                  to="/auth/register/customer"
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-black transition border border-transparent gap-x-2 rounded-xl bg-lime-400 hover:bg-lime-500 focus:outline-none focus:bg-lime-500 disabled:opacity-50 disabled:pointer-events-none"
                 >
                   Register

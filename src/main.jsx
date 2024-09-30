@@ -1,6 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
 
 // >customer
@@ -32,8 +36,23 @@ import ProductA from "./pages/admin/Product";
 import ReviewA from "./pages/admin/Review";
 import VendorA from "./pages/admin/Vendor";
 
+// >auth
+import ConfirmEmail from "./pages/auth/forgot-password/ConfirmEmail";
+import ConfirmOTP from "./pages/auth/forgot-password/ConfirmOTP";
+import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
+import ResetPassword from "./pages/auth/forgot-password/ResetPassword";
+import Register from "./pages/auth/register/Register";
+import CustomerR from "./pages/auth/register/customer/Customer";
+import EmailVerificationC from "./pages/auth/register/customer/EmailVerification";
+import VendorR from "./pages/auth/register/vendor/Vendor";
+import EmailVerificationV from "./pages/auth/register/vendor/EmailVerification";
+import Auth from "./pages/auth/Auth";
+import Login from "./pages/auth/Login";
+import Logout from "./pages/auth/Logout";
+
 // >other
 import NotFound404 from "./pages/other/NotFound404";
+import TermsAndConditions from "./pages/other/TermsAndConditions";
 
 const router = createBrowserRouter([
   // >customer
@@ -137,6 +156,72 @@ const router = createBrowserRouter([
         element: <VendorA />,
       },
     ],
+  },
+  // >auth
+  {
+    path: "/auth",
+    element: <Auth />,
+    children: [
+      // >forgot password
+      {
+        path: "/auth/forgot-password",
+        element: <ForgotPassword />,
+        children: [
+          {
+            path: "/auth/forgot-password/confirm-email",
+            element: <ConfirmEmail />,
+          },
+          {
+            path: "/auth/forgot-password/confirm-otp",
+            element: <ConfirmOTP />,
+          },
+          {
+            path: "/auth/forgot-password/reset-password",
+            element: <ResetPassword />,
+          },
+        ],
+      },
+      // >register
+      {
+        path: "/auth/register",
+        element: <Register />,
+        children: [
+          // >customer register
+          {
+            path: "/auth/register/customer",
+            element: <CustomerR />,
+          },
+          {
+            path: "/auth/register/customer/email-verification",
+            element: <EmailVerificationC />,
+          },
+          // >vendor register
+          {
+            path: "/auth/register/vendor",
+            element: <VendorR />,
+          },
+          {
+            path: "/auth/register/vendor/email-verification",
+            element: <EmailVerificationV />,
+          },
+        ],
+      },
+      // >login
+      {
+        path: "/auth/login",
+        element: <Login />,
+      },
+      // >logout
+      {
+        path: "/auth/logout",
+        element: <Logout />,
+      },
+    ],
+  },
+  // >terms and conditions
+  {
+    path: "/terms-and-conditions",
+    element: <TermsAndConditions />,
   },
 ]);
 
