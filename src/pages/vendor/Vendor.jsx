@@ -1,9 +1,32 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 export default function Vendor() {
+  const navigate = useNavigate();
+
   const isDashboardActive = () => {
     return window.location.pathname.split("/").length == 2;
   };
+
+  useEffect(() => {
+    const checkIsLogin = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/get-user`,
+          {
+            credentials: "include",
+          }
+        );
+        const result = await res.json();
+        if (!res.ok) {
+          navigate("/");
+        }
+      } catch (e) {
+        navigate("/");
+      }
+    };
+    checkIsLogin();
+  }, []);
 
   return (
     <>

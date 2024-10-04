@@ -21,22 +21,43 @@ export default function ConfirmEmail() {
 
   const forgotPassword = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    // setError("email", {
-    //   message: "Not in Database",
-    // });
-    navigate("/auth/forgot-password/confirm-otp");
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/confirm-email`,
+        {
+          method: "post",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await res.json();
+      if (!res.ok) {
+        setError("root", {
+          message: result.msg,
+        });
+      } else {
+        navigate("/auth/forgot-password/confirm-otp");
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(forgotPassword)}>
       <div className="grid gap-y-4">
+        {/* >email */}
         <div>
           <label htmlFor="email" className="block mb-2 text-sm dark:text-white">
             Email
           </label>
           <div className="relative">
-            {/* >email */}
             <input
               {...register("email")}
               type="text"
@@ -68,6 +89,11 @@ export default function ConfirmEmail() {
           )}
           Forgot Password
         </button>
+        {errors.root && (
+          <p className="mt-2 text-xs text-red-500" id="password-error">
+            {errors.root.message}
+          </p>
+        )}
       </div>
     </form>
   );

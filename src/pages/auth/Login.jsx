@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z.string().min(1, { message: "Required" }).email(),
@@ -10,6 +10,8 @@ const schema = z.object({
 });
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -21,7 +23,30 @@ export default function Login() {
 
   const login = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        method: "post",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        setError("root", {
+          message: result.msg,
+        });
+      } else {
+        if (result.role == "customer") navigate("/");
+        else navigate(`/${result.role}`);
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
@@ -150,6 +175,11 @@ export default function Login() {
                   )}
                   Login
                 </button>
+                {errors.root && (
+                  <p className="mt-2 text-xs text-red-500" id="password-error">
+                    {errors.root.message}
+                  </p>
+                )}
               </div>
             </form>
           </div>

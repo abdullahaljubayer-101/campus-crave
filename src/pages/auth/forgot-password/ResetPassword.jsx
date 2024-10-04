@@ -22,6 +22,7 @@ export default function ResetPassword() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
@@ -29,13 +30,38 @@ export default function ResetPassword() {
 
   const resetPassword = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    navigate("/auth/login");
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/reset-password`,
+        {
+          method: "post",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: data.password }),
+        }
+      );
+      const result = await res.json();
+      if (res.ok) {
+        navigate("/auth/login");
+      } else {
+        setError("root", {
+          message: "Something went wrong in the server!",
+        });
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(resetPassword)}>
       <div className="grid gap-y-4">
+        {/* >password */}
         <div>
           <label
             htmlFor="password"
@@ -44,7 +70,6 @@ export default function ResetPassword() {
             Password
           </label>
           <div className="relative">
-            {/* >password */}
             <input
               {...register("password")}
               type="password"
@@ -61,6 +86,7 @@ export default function ResetPassword() {
           )}
         </div>
 
+        {/* >confirmPassword */}
         <div>
           <label
             htmlFor="confirmPassword"
@@ -69,7 +95,6 @@ export default function ResetPassword() {
             Confirm Password
           </label>
           <div className="relative">
-            {/* >confirmPassword */}
             <input
               {...register("confirmPassword")}
               type="password"

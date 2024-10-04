@@ -39,7 +39,6 @@ export default function Vendor() {
 
   const vendorRegister = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
 
     if (!data.termsAndConditions) {
       setError("termsAndConditions", {
@@ -48,7 +47,61 @@ export default function Vendor() {
       return;
     }
 
-    navigate("/auth/register/vendor/email-verification");
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/register/vendor`,
+        {
+          method: "post",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ownerName: data.ownerName,
+            vendorName: data.vendorName,
+            email: data.email,
+            phone: data.phone,
+            password: data.password,
+          }),
+        }
+      );
+      const result = await res.json();
+      console.log(result);
+      if (res.ok) {
+        // >send OTP
+        try {
+          const res = await fetch(
+            `${import.meta.env.VITE_API_URL}/auth/send-otp`,
+            {
+              method: "post",
+              credentials: "include",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ subject: "Email Verification" }),
+            }
+          );
+          const result = await res.json();
+          if (res.ok) {
+            navigate("/auth/register/vendor/email-verification");
+          } else {
+            setError("root", {
+              message: "Something went wrong in the server!",
+            });
+          }
+        } catch (e) {
+          setError("root", {
+            message: "Something went wrong in the server!",
+          });
+        }
+      } else {
+        setError("root", {
+          message: "This email is already registered!",
+        });
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
@@ -250,6 +303,11 @@ export default function Vendor() {
           )}
           Register
         </button>
+        {errors.root && (
+          <p className="mt-2 text-xs text-red-500" id="password-error">
+            {errors.root.message}
+          </p>
+        )}
       </div>
     </form>
   );

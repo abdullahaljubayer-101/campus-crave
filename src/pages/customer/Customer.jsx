@@ -1,8 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 export default function Customer() {
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const checkIsLogin = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/get-user`,
+          {
+            credentials: "include",
+          }
+        );
+        const result = await res.json();
+        if (res.ok) {
+          setIsLogin(true);
+        }
+      } catch (e) {}
+    };
+    checkIsLogin();
+  }, []);
 
   return (
     <>

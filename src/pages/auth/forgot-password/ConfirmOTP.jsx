@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const schema = z.object({
   otp: z
@@ -12,7 +13,37 @@ const schema = z.object({
 });
 
 export default function ConfirmOTP() {
+  const [encryptedEmail, setEncryptedEmail] = useState();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const sendOTP = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/send-otp`,
+          {
+            method: "post",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ subject: "Forgot Password" }),
+          }
+        );
+        const result = await res.json();
+        if (res.ok) {
+          setEncryptedEmail(result.msg);
+        } else {
+          setError("root", {
+            message: "Something went wrong in the server!",
+          });
+        }
+      } catch (e) {
+        setError("root", {
+          message: "Something went wrong in the server!",
+        });
+      }
+    };
+    sendOTP();
+  }, []);
 
   const {
     register,
@@ -25,25 +56,46 @@ export default function ConfirmOTP() {
 
   const otp = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    // setError("otp", {
-    //   message: "Wrong OPT",
-    // });
-    navigate("/auth/forgot-password/reset-password");
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/confirm-otp`,
+        {
+          method: "post",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ otp: data.otp, subject: "Forgot Password" }),
+        }
+      );
+      const result = await res.json();
+      if (res.ok) {
+        navigate("/auth/forgot-password/reset-password");
+      } else {
+        setError("root", {
+          message: result.msg,
+        });
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(otp)}>
       <div className="grid gap-y-4">
+        {/* >otp */}
         <div>
           <label htmlFor="otp" className="block mb-2 text-sm dark:text-white">
             OPT
           </label>
           <p className="my-2 text-xs text-black" id="otp-error">
-            Please check your email (im****@gmail.com) for the OTP
+            {encryptedEmail}
           </p>
           <div className="relative">
-            {/* >otp */}
             <input
               {...register("otp")}
               type="text"
@@ -75,6 +127,11 @@ export default function ConfirmOTP() {
           )}
           Confirm OTP
         </button>
+        {errors.root && (
+          <p className="mt-2 text-xs text-red-500" id="password-error">
+            {errors.root.message}
+          </p>
+        )}
       </div>
     </form>
   );

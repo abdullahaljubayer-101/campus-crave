@@ -39,7 +39,6 @@ export default function Customer() {
 
   const customerRegister = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
 
     if (!data.termsAndConditions) {
       setError("termsAndConditions", {
@@ -48,9 +47,61 @@ export default function Customer() {
       return;
     }
 
-    if (data.emailVerification)
-      navigate("/auth/register/customer/email-verification");
-    else navigate("/");
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/register/customer`,
+        {
+          method: "post",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            password: data.password,
+          }),
+        }
+      );
+      const result = await res.json();
+      if (res.ok) {
+        if (data.emailVerification) {
+          // >send OTP
+          try {
+            const res = await fetch(
+              `${import.meta.env.VITE_API_URL}/auth/send-otp`,
+              {
+                method: "post",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ subject: "Email Verification" }),
+              }
+            );
+            const result = await res.json();
+            if (res.ok) {
+              navigate("/auth/register/customer/email-verification");
+            } else {
+              setError("root", {
+                message: "Something went wrong in the server!",
+              });
+            }
+          } catch (e) {
+            setError("root", {
+              message: "Something went wrong in the server!",
+            });
+          }
+        } else navigate("/");
+      } else {
+        setError("root", {
+          message: "This email is already registered!",
+        });
+      }
+    } catch (e) {
+      setError("root", {
+        message: "Something went wrong in the server!",
+      });
+    }
+
+    // console.log(data);
   };
 
   return (
@@ -245,6 +296,11 @@ export default function Customer() {
           )}
           Register
         </button>
+        {errors.root && (
+          <p className="mt-2 text-xs text-red-500" id="password-error">
+            {errors.root.message}
+          </p>
+        )}
       </div>
     </form>
   );
