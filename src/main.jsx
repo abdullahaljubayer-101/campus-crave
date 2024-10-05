@@ -15,6 +15,7 @@ import Customer from "./pages/customer/Customer";
 import Favorite from "./pages/customer/Favorite";
 import Home from "./pages/customer/Home";
 import Meals from "./pages/customer/Meals";
+import Order from "./pages/customer/Order";
 import Vendors from "./pages/customer/Vendors";
 
 // >vendor
@@ -35,6 +36,7 @@ import OrderA from "./pages/admin/Order";
 import ProductA from "./pages/admin/Product";
 import ReviewA from "./pages/admin/Review";
 import VendorA from "./pages/admin/Vendor";
+import VendorDetailsA from "./pages/admin/VendorDetails";
 
 // >auth
 import ConfirmEmail from "./pages/auth/forgot-password/ConfirmEmail";
@@ -84,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/meals",
         element: <Meals />,
+      },
+      {
+        path: "/order",
+        element: <Order />,
       },
       {
         path: "/vendors",
@@ -154,6 +160,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/vendor",
         element: <VendorA />,
+      },
+      {
+        path: "/admin/vendor/:id",
+        element: <VendorDetailsA />,
       },
     ],
   },

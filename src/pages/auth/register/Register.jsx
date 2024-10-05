@@ -4,17 +4,19 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 export default function Register() {
   const navigate = useNavigate();
   const [whoIsRegistering, setWhoIsRegistering] = useState();
+  const [registerOrEmailVerification, setRegisterOrEmailVerification] =
+    useState(false);
 
   useEffect(() => {
     if (window.location.pathname.split("/").length == 3)
       navigate("/auth/register/customer");
     setWhoIsRegistering(() =>
-      setWhoIsRegistering(
-        window.location.pathname
-          .split("/")[3]
-          .replace(/\b\w/g, (l) => l.toUpperCase())
-      )
+      window.location.pathname
+        .split("/")[3]
+        .replace(/\b\w/g, (l) => l.toUpperCase())
     );
+    if (window.location.pathname.split("/")[4])
+      setRegisterOrEmailVerification(true);
   }, []);
 
   return (
@@ -23,17 +25,23 @@ export default function Register() {
         <div className="p-4 sm:p-7">
           <div className="flex flex-col items-center justify-center">
             <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-              {whoIsRegistering} Register
+              {!registerOrEmailVerification
+                ? `${whoIsRegistering} Register`
+                : "Email Verification"}
             </h1>
-            <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-              Already have an account?
-            </p>
-            <Link
-              className="text-sm font-medium text-lime-500 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500"
-              to="/auth/login"
-            >
-              Login
-            </Link>
+            {!registerOrEmailVerification && (
+              <>
+                <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                  Already have an account?
+                </p>
+                <Link
+                  className="text-sm font-medium text-lime-500 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500"
+                  to="/auth/login"
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </div>
 
           <div className="mt-5">
