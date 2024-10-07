@@ -16,6 +16,7 @@ import Favorite from "./pages/customer/Favorite";
 import Home from "./pages/customer/Home";
 import Meals from "./pages/customer/Meals";
 import Order from "./pages/customer/Order";
+import ProductDetails from "./pages/customer/ProductDetails";
 import Vendors from "./pages/customer/Vendors";
 
 // >vendor
@@ -23,6 +24,8 @@ import AccountV from "./pages/vendor/Account";
 import DashboardV from "./pages/vendor/Dashboard";
 import OrderV from "./pages/vendor/Order";
 import ProductV from "./pages/vendor/Product";
+import ProductAddV from "./pages/vendor/ProductAdd";
+import ProductDetailsV from "./pages/vendor/ProductDetails";
 import ReviewV from "./pages/vendor/Review";
 import Vendor from "./pages/vendor/Vendor";
 
@@ -30,13 +33,16 @@ import Vendor from "./pages/vendor/Vendor";
 import AccountA from "./pages/admin/Account";
 import Admin from "./pages/admin/Admin";
 import CustomerA from "./pages/admin/Customer";
+import CustomerDetailsA from "./pages/admin/CustomerDetails";
 import DashboardA from "./pages/admin/Dashboard";
 import LoanA from "./pages/admin/Loan";
 import OrderA from "./pages/admin/Order";
 import ProductA from "./pages/admin/Product";
+import ProductDetailsA from "./pages/admin/ProductDetails";
 import ReviewA from "./pages/admin/Review";
 import VendorA from "./pages/admin/Vendor";
 import VendorDetailsA from "./pages/admin/VendorDetails";
+import VendorProductDetailsA from "./pages/admin/VendorProductDetails";
 
 // >auth
 import ConfirmEmail from "./pages/auth/forgot-password/ConfirmEmail";
@@ -92,6 +98,10 @@ const router = createBrowserRouter([
         element: <Order />,
       },
       {
+        path: "/product/:id",
+        element: <ProductDetails />,
+      },
+      {
         path: "/vendors",
         element: <Vendors />,
       },
@@ -119,6 +129,14 @@ const router = createBrowserRouter([
         element: <ProductV />,
       },
       {
+        path: "/vendor/product/add",
+        element: <ProductAddV />,
+      },
+      {
+        path: "/vendor/product/:id",
+        element: <ProductDetailsV />,
+      },
+      {
         path: "/vendor/review",
         element: <ReviewV />,
       },
@@ -138,6 +156,10 @@ const router = createBrowserRouter([
         element: <CustomerA />,
       },
       {
+        path: "/admin/customer/:id",
+        element: <CustomerDetailsA />,
+      },
+      {
         path: "/admin",
         element: <DashboardA />,
       },
@@ -154,6 +176,10 @@ const router = createBrowserRouter([
         element: <ProductA />,
       },
       {
+        path: "/admin/product/:id",
+        element: <ProductDetailsA />,
+      },
+      {
         path: "/admin/review",
         element: <ReviewA />,
       },
@@ -164,6 +190,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/vendor/:id",
         element: <VendorDetailsA />,
+      },
+      {
+        path: "/admin/vendor/product/:id",
+        element: <VendorProductDetailsA />,
       },
     ],
   },

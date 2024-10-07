@@ -1,3 +1,3 @@
 export default function Favorite() {
-  return <div>Favorite</div>;
+  return <h1>jksndk</h1>;
 }

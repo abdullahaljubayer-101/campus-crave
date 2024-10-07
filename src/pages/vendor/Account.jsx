@@ -41,8 +41,12 @@ export default function Account() {
         <div className="space-y-16">
           <Status user={user} />
           <p className="text-lg font-medium">Vendor Information</p>
-          <VendorDisplayPicture vendor={vendor} />
-          <VendorInfo vendor={vendor} />
+          {vendor.id && (
+            <>
+              <VendorDisplayPicture vendor={vendor} />
+              <VendorInfo vendor={vendor} />
+            </>
+          )}
           <p className="text-lg font-medium">User Information</p>
           <DisplayPicture user={user} />
           <Info user={user} />
@@ -163,7 +167,7 @@ export function VendorDisplayPicture({ vendor }) {
     <div className="flex items-center justify-between">
       {vendor && (
         <img
-          className="rounded-full w-36 h-36"
+          className="object-cover rounded-full w-36 h-36"
           src={vendor.img ? DP : "../src/assets/avatar-default.svg"}
           alt=""
         />
@@ -393,7 +397,7 @@ export function DisplayPicture({ user }) {
   return (
     <div className="flex items-center justify-between">
       <img
-        className="rounded-full w-36 h-36"
+        className="object-cover rounded-full w-36 h-36"
         src={user.img ? DP : "../src/assets/avatar-default.svg"}
         alt=""
       />

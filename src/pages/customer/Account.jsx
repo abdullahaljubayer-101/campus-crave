@@ -159,7 +159,7 @@ export function DisplayPicture({ user }) {
   return (
     <div className="flex items-center justify-between">
       <img
-        className="rounded-full w-36 h-36"
+        className="object-cover rounded-full w-36 h-36"
         src={user.img ? DP : "../src/assets/avatar-default.svg"}
         // src={DP}
         alt=""

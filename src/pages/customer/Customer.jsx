@@ -60,7 +60,7 @@ export default function Customer() {
             {isLogin && (
               <>
                 {/* >favorite */}
-                <Link
+                {/* <Link
                   to="/favorite"
                   className="inline-flex justify-center items-center size-[38px] rounded-xl bg-lime-400 text-white hover:bg-lime-500 dark:bg-lime-400 "
                 >
@@ -72,7 +72,7 @@ export default function Customer() {
                   >
                     <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
                   </svg>
-                </Link>
+                </Link> */}
                 {/* >cart */}
                 <Link
                   to="/cart"
@@ -175,7 +175,7 @@ export default function Customer() {
               </div>
               <div>
                 {/* >meals */}
-                <NavLink
+                {/* <NavLink
                   className={({ isActive }) => {
                     return isActive
                       ? "relative inline-block text-black hover:text-lime-500 focus:outline-none dark:text-white before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400"
@@ -185,11 +185,11 @@ export default function Customer() {
                   aria-current="page"
                 >
                   Meals
-                </NavLink>
+                </NavLink> */}
               </div>
               <div>
                 {/* >vendors */}
-                <NavLink
+                {/* <NavLink
                   className={({ isActive }) => {
                     return isActive
                       ? "relative inline-block text-black hover:text-lime-500 focus:outline-none dark:text-white before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400"
@@ -198,11 +198,11 @@ export default function Customer() {
                   to="/vendors"
                 >
                   Vendors
-                </NavLink>
+                </NavLink> */}
               </div>
               <div>
                 {/* >categories */}
-                <NavLink
+                {/* <NavLink
                   className={({ isActive }) => {
                     return isActive
                       ? "relative inline-block text-black hover:text-lime-500 focus:outline-none dark:text-white before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400"
@@ -211,7 +211,7 @@ export default function Customer() {
                   to="/categories"
                 >
                   Categories
-                </NavLink>
+                </NavLink> */}
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function Customer() {
         <Outlet />
       </main>
 
-      <footer class="relative overflow-hidden bg-neutral-900">
+      {/* <footer class="relative overflow-hidden bg-neutral-900">
         <svg
           class="absolute -bottom-20 start-1/2 w-[1900px] transform -translate-x-1/2"
           width="2745"
@@ -328,7 +328,7 @@ export default function Customer() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 }

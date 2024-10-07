@@ -80,7 +80,7 @@ export default function Admin() {
             <div className="flex flex-row items-center justify-end gap-1">
               <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
                 {/* >notifications button */}
-                <button
+                {/* <button
                   onClick={() =>
                     setNotifications((prev) => setNotifications(!prev))
                   }
@@ -95,7 +95,7 @@ export default function Admin() {
                   >
                     <path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416l400 0c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4l0-25.4c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112l0 25.4c0 47.9 13.9 94.6 39.7 134.6L72.3 368C98.1 328 112 281.3 112 233.4l0-25.4c0-61.9 50.1-112 112-112zm64 352l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z" />
                   </svg>
-                </button>
+                </button> */}
 
                 {/* account */}
                 <Link
@@ -104,7 +104,7 @@ export default function Admin() {
                 >
                   <img
                     className="shrink-0 size-[38px] rounded-full"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                    src="../src/assets/avatar-default.svg"
                     alt="Avatar"
                   />
                 </Link>
@@ -207,7 +207,7 @@ export default function Admin() {
 
                 <li>
                   {/* >review */}
-                  <NavLink
+                  {/* <NavLink
                     className={({ isActive }) => {
                       return isActive
                         ? "flex items-center gap-x-3.5 py-2 px-2.5 bg-lime-100 text-sm rounded-lg hover:bg-lime-100 focus:outline-none focus:bg-lime-100 dark:bg-neutral-700 dark:text-white"
@@ -224,7 +224,7 @@ export default function Admin() {
                       <path d="M288 376.4l.1-.1 26.4 14.1 85.2 45.5-16.5-97.6-4.8-28.7 20.7-20.5 70.1-69.3-96.1-14.2-29.3-4.3-12.9-26.6L288.1 86.9l-.1 .3 0 289.2zm175.1 98.3c2 12-3 24.2-12.9 31.3s-23 8-33.8 2.3L288.1 439.8 159.8 508.3C149 514 135.9 513.1 126 506s-14.9-19.3-12.9-31.3L137.8 329 33.6 225.9c-8.6-8.5-11.7-21.2-7.9-32.7s13.7-19.9 25.7-21.7L195 150.3 259.4 18c5.4-11 16.5-18 28.8-18s23.4 7 28.8 18l64.3 132.3 143.6 21.2c12 1.8 22 10.2 25.7 21.7s.7 24.2-7.9 32.7L438.5 329l24.6 145.7z" />
                     </svg>
                     Review
-                  </NavLink>
+                  </NavLink> */}
                 </li>
 
                 <li>
@@ -273,7 +273,7 @@ export default function Admin() {
 
                 <li>
                   {/* >loan */}
-                  <NavLink
+                  {/* <NavLink
                     className={({ isActive }) => {
                       return isActive
                         ? "flex items-center gap-x-3.5 py-2 px-2.5 bg-lime-100 text-sm rounded-lg hover:bg-lime-100 focus:outline-none focus:bg-lime-100 dark:bg-neutral-700 dark:text-white"
@@ -290,7 +290,7 @@ export default function Admin() {
                       <path d="M288 376.4l.1-.1 26.4 14.1 85.2 45.5-16.5-97.6-4.8-28.7 20.7-20.5 70.1-69.3-96.1-14.2-29.3-4.3-12.9-26.6L288.1 86.9l-.1 .3 0 289.2zm175.1 98.3c2 12-3 24.2-12.9 31.3s-23 8-33.8 2.3L288.1 439.8 159.8 508.3C149 514 135.9 513.1 126 506s-14.9-19.3-12.9-31.3L137.8 329 33.6 225.9c-8.6-8.5-11.7-21.2-7.9-32.7s13.7-19.9 25.7-21.7L195 150.3 259.4 18c5.4-11 16.5-18 28.8-18s23.4 7 28.8 18l64.3 132.3 143.6 21.2c12 1.8 22 10.2 25.7 21.7s.7 24.2-7.9 32.7L438.5 329l24.6 145.7z" />
                     </svg>
                     Loan
-                  </NavLink>
+                  </NavLink> */}
                 </li>
 
                 <li>
